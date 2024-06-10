@@ -185,7 +185,7 @@ class CharacterSheet extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        '【奥義：神居弐式】',
+                        character.secretArtsName,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Readex Pro',
                               letterSpacing: 0,
@@ -198,7 +198,7 @@ class CharacterSheet extends StatelessWidget {
                     children: [
                       Flexible(
                         child: Text(
-                          '自分の帰還エリアにカードが4枚以上ある場合使用できる。\n【コスト：自分の写シを4枚隠世へ送る】\n相手キャラクターを1体選びサイコロを1回振る。出た目の数だけその相手キャラクターにこのキャラクターの [攻勢] と同じ数のダメージを与える。',
+                          character.secretArtsDescription,
                           maxLines: 20,
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
