@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tojitomo_counter/components/ability_score_row.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:tojitomo_counter/components/equipment_button.dart';
+import 'package:tojitomo_counter/components/turn_bar.dart';
 import 'package:tojitomo_counter/models/character.dart';
 
 class CharacterSheet extends StatelessWidget {
@@ -16,69 +17,70 @@ class CharacterSheet extends StatelessWidget {
     return Scaffold(
       // key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primary,
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Text(
-              'ターン',
-              style: FlutterFlowTheme.of(context).headlineMedium.override(
-                    fontFamily: 'Outfit',
-                    color: Colors.white,
-                    fontSize: 14,
-                    letterSpacing: 0,
-                    fontWeight: FontWeight.normal,
-                  ),
-            ),
-            Align(
-              alignment: AlignmentDirectional(0, 0),
-              child: Text(
-                '1',
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Readex Pro',
-                      color: Colors.white,
-                      fontSize: 28,
-                      letterSpacing: 0,
-                    ),
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          FFButtonWidget(
-            onPressed: () {
-              print('Button pressed ...');
-            },
-            text: '',
-            icon: Icon(
-              Icons.next_plan,
-              size: 30,
-            ),
-            options: FFButtonOptions(
-              width: 50,
-              height: 40,
-              padding: EdgeInsets.all(0),
-              iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-              color: FlutterFlowTheme.of(context).primary,
-              textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                    fontFamily: 'Readex Pro',
-                    color: Colors.white,
-                    letterSpacing: 0,
-                  ),
-              elevation: 3,
-              borderSide: BorderSide(
-                color: Colors.transparent,
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-        ],
-        centerTitle: false,
-        elevation: 2,
-      ),
+      // appBar: TurnBar(),
+      // appBar: AppBar(
+      //   backgroundColor: FlutterFlowTheme.of(context).primary,
+      //   automaticallyImplyLeading: false,
+      //   title: Row(
+      //     mainAxisSize: MainAxisSize.max,
+      //     children: [
+      //       Text(
+      //         'ターン',
+      //         style: FlutterFlowTheme.of(context).headlineMedium.override(
+      //               fontFamily: 'Outfit',
+      //               color: Colors.white,
+      //               fontSize: 14,
+      //               letterSpacing: 0,
+      //               fontWeight: FontWeight.normal,
+      //             ),
+      //       ),
+      //       Align(
+      //         alignment: AlignmentDirectional(0, 0),
+      //         child: Text(
+      //           '1',
+      //           style: FlutterFlowTheme.of(context).bodyMedium.override(
+      //                 fontFamily: 'Readex Pro',
+      //                 color: Colors.white,
+      //                 fontSize: 28,
+      //                 letterSpacing: 0,
+      //               ),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      //   actions: [
+      //     FFButtonWidget(
+      //       onPressed: () {
+      //         print('Button pressed ...');
+      //       },
+      //       text: '',
+      //       icon: Icon(
+      //         Icons.next_plan,
+      //         size: 30,
+      //       ),
+      //       options: FFButtonOptions(
+      //         width: 50,
+      //         height: 40,
+      //         padding: EdgeInsets.all(0),
+      //         iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+      //         color: FlutterFlowTheme.of(context).primary,
+      //         textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+      //               fontFamily: 'Readex Pro',
+      //               color: Colors.white,
+      //               letterSpacing: 0,
+      //             ),
+      //         elevation: 3,
+      //         borderSide: BorderSide(
+      //           color: Colors.transparent,
+      //           width: 1,
+      //         ),
+      //         borderRadius: BorderRadius.circular(8),
+      //       ),
+      //     ),
+      //   ],
+      //   centerTitle: false,
+      //   elevation: 2,
+      // ),
       body: SafeArea(
         top: true,
         child: Column(

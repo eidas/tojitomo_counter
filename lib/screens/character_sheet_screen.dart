@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 // import 'package:tojitomo_counter/components/ability_score_row.dart';
 import 'package:tojitomo_counter/components/charater_sheet.dart';
+import 'package:tojitomo_counter/components/turn_bar.dart';
 import 'package:tojitomo_counter/models/character.dart';
 
 class CharacterSheetScreen extends StatelessWidget {
@@ -66,6 +67,7 @@ class CharacterSheetScreen extends StatelessWidget {
             ),
           ),
         ),
+        TurnBar(),
         Container(
           height: 350,
           child: Transform.scale(
