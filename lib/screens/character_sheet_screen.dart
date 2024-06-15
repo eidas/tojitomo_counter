@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 // import 'package:tojitomo_counter/components/ability_score_row.dart';
 import 'package:tojitomo_counter/components/charater_sheet.dart';
 import 'package:tojitomo_counter/components/turn_bar.dart';
@@ -55,27 +57,27 @@ class CharacterSheetScreen extends StatelessWidget {
     );
     return Column(
       children: [
-        Container(
-          height: 350,
+        Expanded(
           child: Transform.scale(
-            scale: 0.8,
+            scale: 1.0,
             child: Transform.rotate(
               angle: pi,
               child: CharacterSheet(
                 character: character2,
+                playerNumber: 2,
               ),
             ),
           ),
         ),
         TurnBar(),
-        Container(
-          height: 350,
+        Expanded(
           child: Transform.scale(
-            scale: 0.8,
+            scale: 1.0,
             child: Transform.rotate(
               angle: 0,
               child: CharacterSheet(
                 character: character1,
+                playerNumber: 1,
               ),
             ),
           ),

@@ -1,12 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:flutter/material.dart';
 
+enum EquipmentStatus {
+  notEquiped(displayName: 'なし', additionalScore: 0),
+  sSoubi(displayName: 'S装備', additionalScore: 3),
+  saishireisou(displayName: '祭祀礼装', additionalScore: 2),
+  ;
+
+  final String displayName;
+  final int additionalScore;
+
+  const EquipmentStatus(
+      {required this.displayName, required this.additionalScore});
+}
+
+// ignore: must_be_immutable
 class EquipmentButton extends StatefulWidget {
   EquipmentButton({
     super.key,
+    required this.callback,
   });
+  final Function callback;
   int additionalScore = 0;
 
   @override
@@ -35,27 +50,32 @@ class _EquipmentButtonState extends State<EquipmentButton> {
   }
 
   void _setSelectedButton(int onSelect) {
-    if (onSelect == 0) {
-      if (selectedButton[0]) {
+    if (onSelect == 0 /* S装ボタンが押された */) {
+      if (equipmentStatus == EquipmentStatus.sSoubi) {
+        equipmentStatus = EquipmentStatus.notEquiped;
         selectedButton = [false, false];
         _unequip();
       } else {
+        equipmentStatus = EquipmentStatus.sSoubi;
         selectedButton = [true, false];
         _equipSSoubi();
       }
-    } else if (onSelect == 1) {
-      if (selectedButton[1]) {
+    } else if (onSelect == 1 /* 祭礼ボタンが押された */) {
+      if (equipmentStatus == EquipmentStatus.saishireisou) {
+        equipmentStatus = EquipmentStatus.notEquiped;
         selectedButton = [false, false];
         _unequip();
       } else {
+        equipmentStatus = EquipmentStatus.saishireisou;
         selectedButton = [false, true];
         _equipSaishireisou();
       }
     }
   }
 
+  EquipmentStatus equipmentStatus = EquipmentStatus.notEquiped;
   List<bool> selectedButton = [false, false];
-  int selectedEquipment = -1;
+  // int selectedEquipment = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +87,7 @@ class _EquipmentButtonState extends State<EquipmentButton> {
         setState(() {
           _setSelectedButton(index);
         });
+        widget.callback(widget.additionalScore);
       },
       borderRadius: const BorderRadius.all(Radius.circular(10)),
     );

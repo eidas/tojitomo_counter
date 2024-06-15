@@ -22,10 +22,10 @@ class AbilityScoreRow extends StatefulWidget {
   int get currentScore => score;
 
   @override
-  State<AbilityScoreRow> createState() => _AbilityScoreRowState();
+  State<AbilityScoreRow> createState() => AbilityScoreRowState();
 }
 
-class _AbilityScoreRowState extends State<AbilityScoreRow> {
+class AbilityScoreRowState extends State<AbilityScoreRow> {
   void newTurn() {
     setState(() {
       widget.score = widget.initialScore + widget.additionalScore;
