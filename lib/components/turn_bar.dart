@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 
+// ignore: must_be_immutable
 class TurnBar extends AppBar {
   TurnBar({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+    required this.callback,
+  });
+  final Function callback;
   int turn = 1;
 
   @override
@@ -46,8 +49,16 @@ class _TurnBarState extends State<TurnBar> {
       ),
       actions: [
         FFButtonWidget(
-          onPressed: () {
-            print('Button pressed ...');
+          onPressed: () async {
+            // print('Button pressed ...');
+            final reslut = await _showCommonDialog(
+                context, '確認', '次のターンに進みますか？', 'OK', 'キャンセル');
+            if (reslut ?? false) {
+              setState(() {
+                widget.turn++;
+              });
+              widget.callback();
+            }
           },
           text: '',
           icon: Icon(
@@ -76,6 +87,41 @@ class _TurnBarState extends State<TurnBar> {
       ],
       centerTitle: false,
       elevation: 2,
+    );
+  }
+
+  Future<bool?> _showCommonDialog(BuildContext context, String title,
+      String message, String yesText, String noText) async {
+    return await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(
+            message,
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: Text(noText),
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: Text(yesText),
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

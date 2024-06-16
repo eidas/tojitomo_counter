@@ -9,9 +9,19 @@ import 'package:tojitomo_counter/components/turn_bar.dart';
 import 'package:tojitomo_counter/models/character.dart';
 
 class CharacterSheetScreen extends StatelessWidget {
-  const CharacterSheetScreen({
-    Key? key,
-  }) : super(key: key);
+  CharacterSheetScreen({
+    super.key,
+  }) {
+    player1Key = const GlobalObjectKey('p1');
+    player2Key = const GlobalObjectKey('p2');
+  }
+  GlobalObjectKey<CharacterSheetState>? player1Key;
+  GlobalObjectKey<CharacterSheetState>? player2Key;
+
+  void newTurn() {
+    player1Key!.currentState!.resetScore();
+    player2Key!.currentState!.resetScore();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +41,7 @@ class CharacterSheetScreen extends StatelessWidget {
       characterName: '安桜 美炎',
       characterNameRomeji: 'ASAKURA MIHONO',
       shozoku: '美濃関',
-      seiryoku: '刀使',
+      seiryoku: '刀使/荒魂',
       offenseScore: 6,
       defenseScore: 4,
       agilityScore: 1,
@@ -63,19 +73,23 @@ class CharacterSheetScreen extends StatelessWidget {
             child: Transform.rotate(
               angle: pi,
               child: CharacterSheet(
+                key: player2Key,
                 character: character2,
                 playerNumber: 2,
               ),
             ),
           ),
         ),
-        TurnBar(),
+        TurnBar(
+          callback: newTurn,
+        ),
         Expanded(
           child: Transform.scale(
             scale: 1.0,
             child: Transform.rotate(
               angle: 0,
               child: CharacterSheet(
+                key: player1Key,
                 character: character1,
                 playerNumber: 1,
               ),

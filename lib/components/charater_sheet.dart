@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:tojitomo_counter/components/ability_score_row.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:tojitomo_counter/components/equipment_button.dart';
 import 'package:tojitomo_counter/models/character.dart';
 
 // ignore: must_be_immutable
-class CharacterSheet extends StatelessWidget {
+class CharacterSheet extends StatefulWidget {
   CharacterSheet({
     super.key,
     required this.character,
@@ -17,19 +18,36 @@ class CharacterSheet extends StatelessWidget {
         GlobalObjectKey<AbilityScoreRowState>("p${playerNumber}defense");
     agilityAbilityKey =
         GlobalObjectKey<AbilityScoreRowState>("p${playerNumber}agility");
+    belongToToji = character.seiryoku.startsWith('刀使');
   }
   final Character character;
   final int playerNumber;
-  int additionalScore = 0;
+  late bool belongToToji;
   GlobalObjectKey<AbilityScoreRowState>? offeseAbilityKey;
   GlobalObjectKey<AbilityScoreRowState>? defenseAbilityKey;
   GlobalObjectKey<AbilityScoreRowState>? agilityAbilityKey;
 
+  @override
+  State<CharacterSheet> createState() => CharacterSheetState();
+}
+
+class CharacterSheetState extends State<CharacterSheet> {
+  int additionalScore = 0;
+
   void updateAdditionalScore(int additionalScore) {
-    offeseAbilityKey!.currentState!.updateAddtionalScore(additionalScore);
-    defenseAbilityKey!.currentState!.updateAddtionalScore(additionalScore);
-    agilityAbilityKey!.currentState!.updateAddtionalScore(additionalScore);
+    widget.offeseAbilityKey!.currentState!
+        .updateAddtionalScore(additionalScore);
+    widget.defenseAbilityKey!.currentState!
+        .updateAddtionalScore(additionalScore);
+    widget.agilityAbilityKey!.currentState!
+        .updateAddtionalScore(additionalScore);
     this.additionalScore = additionalScore;
+  }
+
+  void resetScore() {
+    widget.offeseAbilityKey!.currentState!.resetScore();
+    widget.defenseAbilityKey!.currentState!.resetScore();
+    widget.agilityAbilityKey!.currentState!.resetScore();
   }
 
   @override
@@ -57,7 +75,7 @@ class CharacterSheet extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.all(4),
                         child: Text(
-                          character.characterName,
+                          widget.character.characterName,
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Readex Pro',
@@ -69,7 +87,7 @@ class CharacterSheet extends StatelessWidget {
                       Align(
                         alignment: AlignmentDirectional(0, 0),
                         child: Text(
-                          character.characterNameRomeji,
+                          widget.character.characterNameRomeji,
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Readex Pro',
@@ -86,7 +104,7 @@ class CharacterSheet extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.all(2),
                         child: Text(
-                          character.shozoku,
+                          widget.character.shozoku,
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Readex Pro',
@@ -100,7 +118,7 @@ class CharacterSheet extends StatelessWidget {
                         child: Padding(
                           padding: EdgeInsets.all(4),
                           child: Text(
-                            character.seiryoku,
+                            widget.character.seiryoku,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -114,31 +132,34 @@ class CharacterSheet extends StatelessWidget {
                       Container(
                         width: 20,
                       ),
-                      EquipmentButton(callback: updateAdditionalScore),
+                      Visibility(
+                          visible: widget.belongToToji,
+                          child:
+                              EquipmentButton(callback: updateAdditionalScore)),
                     ],
                   ),
 
                   // *** 攻勢 ***
                   AbilityScoreRow(
-                    key: offeseAbilityKey,
+                    key: widget.offeseAbilityKey,
                     abilityName: "攻勢",
-                    initialScore: character.offenseScore,
+                    initialScore: widget.character.offenseScore,
                     additionalScore: 0,
                   ),
 
                   // *** 守勢 ***
                   AbilityScoreRow(
-                    key: defenseAbilityKey,
+                    key: widget.defenseAbilityKey,
                     abilityName: "守勢",
-                    initialScore: character.defenseScore,
+                    initialScore: widget.character.defenseScore,
                     additionalScore: 0,
                   ),
 
                   // *** 敏捷 ***
                   AbilityScoreRow(
-                    key: agilityAbilityKey,
+                    key: widget.agilityAbilityKey,
                     abilityName: "敏捷",
-                    initialScore: character.agilityScore,
+                    initialScore: widget.character.agilityScore,
                     additionalScore: 0,
                   ),
 
@@ -146,7 +167,7 @@ class CharacterSheet extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        character.secretArtsName,
+                        widget.character.secretArtsName,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Readex Pro',
                               letterSpacing: 0,
@@ -162,7 +183,7 @@ class CharacterSheet extends StatelessWidget {
                           constraints: const BoxConstraints(
                               minHeight: 10, minWidth: double.infinity),
                           child: Text(
-                            character.secretArtsDescription,
+                            widget.character.secretArtsDescription,
                             maxLines: 10,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium

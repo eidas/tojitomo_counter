@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +24,7 @@ class AbilityScoreRow extends StatefulWidget {
 }
 
 class AbilityScoreRowState extends State<AbilityScoreRow> {
-  void newTurn() {
+  void resetScore() {
     setState(() {
       widget.score = widget.initialScore + widget.additionalScore;
     });
