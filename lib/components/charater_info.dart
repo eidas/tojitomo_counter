@@ -1,53 +1,29 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tojitomo_counter/components/ability_score_row.dart';
+import 'package:tojitomo_counter/components/ability_score_info_row.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
-import 'package:tojitomo_counter/components/equipment_button.dart';
 import 'package:tojitomo_counter/models/character.dart';
 
 // ignore: must_be_immutable
-class CharacterSheet extends StatefulWidget {
-  CharacterSheet({
+class CharacterInfo extends StatefulWidget {
+  CharacterInfo({
     super.key,
     required this.character,
     required this.playerNumber,
-  }) {
-    offeseAbilityKey =
-        GlobalObjectKey<AbilityScoreRowState>("p${playerNumber}offense");
-    defenseAbilityKey =
-        GlobalObjectKey<AbilityScoreRowState>("p${playerNumber}defense");
-    agilityAbilityKey =
-        GlobalObjectKey<AbilityScoreRowState>("p${playerNumber}agility");
-    belongToToji = character.seiryoku.startsWith('刀使');
-  }
-  final Character character;
+  });
+  Character character;
   final int playerNumber;
-  late bool belongToToji;
-  GlobalObjectKey<AbilityScoreRowState>? offeseAbilityKey;
-  GlobalObjectKey<AbilityScoreRowState>? defenseAbilityKey;
-  GlobalObjectKey<AbilityScoreRowState>? agilityAbilityKey;
 
   @override
-  State<CharacterSheet> createState() => CharacterSheetState();
+  State<CharacterInfo> createState() => CharacterInfoState();
 }
 
-class CharacterSheetState extends State<CharacterSheet> {
-  int additionalScore = 0;
-
-  void updateAdditionalScore(int additionalScore) {
-    widget.offeseAbilityKey!.currentState!
-        .updateAddtionalScore(additionalScore);
-    widget.defenseAbilityKey!.currentState!
-        .updateAddtionalScore(additionalScore);
-    widget.agilityAbilityKey!.currentState!
-        .updateAddtionalScore(additionalScore);
-    this.additionalScore = additionalScore;
-  }
-
-  void resetScore() {
-    widget.offeseAbilityKey!.currentState!.resetScore();
-    widget.defenseAbilityKey!.currentState!.resetScore();
-    widget.agilityAbilityKey!.currentState!.resetScore();
+class CharacterInfoState extends State<CharacterInfo> {
+  void changeCharacter(Character character) {
+    setState(() {
+      widget.character = character;
+    });
   }
 
   @override
@@ -60,7 +36,7 @@ class CharacterSheetState extends State<CharacterSheet> {
         children: [
           Container(
             width: MediaQuery.sizeOf(context).width,
-            height: 360, // MediaQuery.sizeOf(context).height * 1,
+            height: 250, // MediaQuery.sizeOf(context).height * 1,
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).secondaryBackground,
             ),
@@ -76,7 +52,7 @@ class CharacterSheetState extends State<CharacterSheet> {
                         widget.character.characterName,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Readex Pro',
-                              fontSize: 18,
+                              fontSize: 14,
                               letterSpacing: 0,
                             ),
                       ),
@@ -87,7 +63,7 @@ class CharacterSheetState extends State<CharacterSheet> {
                         widget.character.characterNameRomeji,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Readex Pro',
-                              fontSize: 12,
+                              fontSize: 9,
                               letterSpacing: 0,
                             ),
                       ),
@@ -103,7 +79,7 @@ class CharacterSheetState extends State<CharacterSheet> {
                         widget.character.shozoku,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Readex Pro',
-                              fontSize: 12,
+                              fontSize: 9,
                               letterSpacing: 0,
                             ),
                       ),
@@ -117,44 +93,31 @@ class CharacterSheetState extends State<CharacterSheet> {
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Readex Pro',
-                                    fontSize: 14,
+                                    fontSize: 11,
                                     letterSpacing: 0,
                                   ),
                         ),
                       ),
                     ),
-                    Container(
-                      width: 20,
-                    ),
-                    Visibility(
-                        visible: widget.belongToToji,
-                        child:
-                            EquipmentButton(callback: updateAdditionalScore)),
                   ],
                 ),
 
                 // *** 攻勢 ***
-                AbilityScoreRow(
-                  key: widget.offeseAbilityKey,
+                AbilityScoreInfoRow(
                   abilityName: "攻勢",
                   initialScore: widget.character.offenseScore,
-                  additionalScore: 0,
                 ),
 
                 // *** 守勢 ***
-                AbilityScoreRow(
-                  key: widget.defenseAbilityKey,
+                AbilityScoreInfoRow(
                   abilityName: "守勢",
                   initialScore: widget.character.defenseScore,
-                  additionalScore: 0,
                 ),
 
                 // *** 敏捷 ***
-                AbilityScoreRow(
-                  key: widget.agilityAbilityKey,
+                AbilityScoreInfoRow(
                   abilityName: "敏捷",
                   initialScore: widget.character.agilityScore,
-                  additionalScore: 0,
                 ),
 
                 Row(
@@ -183,7 +146,7 @@ class CharacterSheetState extends State<CharacterSheet> {
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Readex Pro',
-                                    fontSize: 10,
+                                    fontSize: 9,
                                     letterSpacing: 0,
                                   ),
                         ),

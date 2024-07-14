@@ -21,6 +21,21 @@ class Character {
   final String secretArtsName;
   final String secretArtsDescription;
 
+  @override
+  String toString() {
+    final str = "$characterName";
+    return str;
+  }
+
+  String get name => characterName;
+
+  String description() {
+    final str = "$characterName, $characterNameRomeji, $shozoku, $seiryoku, "
+        "${offenseScore.toString()}, ${defenseScore.toString()}, ${agilityScore.toString()}, "
+        "$secretArtsName, $secretArtsDescription";
+    return str;
+  }
+
   // JSONからCharacterを生成するファクトリコンストラクタ
   factory Character.fromJson(dynamic json) {
     return Character(

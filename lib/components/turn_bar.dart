@@ -34,7 +34,7 @@ class _TurnBarState extends State<TurnBar> {
                 ),
           ),
           Align(
-            alignment: AlignmentDirectional(0, 0),
+            alignment: const AlignmentDirectional(0, 0),
             child: Text(
               widget.turn.toString(),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -52,7 +52,7 @@ class _TurnBarState extends State<TurnBar> {
           onPressed: () async {
             // print('Button pressed ...');
             final reslut = await _showCommonDialog(
-                context, '確認', '次のターンに進みますか？', 'OK', 'キャンセル');
+                context, '次のターン', '次のターンに進みますか？', 'OK', 'キャンセル');
             if (reslut ?? false) {
               setState(() {
                 widget.turn++;
@@ -61,15 +61,15 @@ class _TurnBarState extends State<TurnBar> {
             }
           },
           text: '',
-          icon: Icon(
-            Icons.next_plan,
+          icon: const Icon(
+            Icons.restart_alt,
             size: 30,
           ),
           options: FFButtonOptions(
             width: 50,
             height: 40,
-            padding: EdgeInsets.all(0),
-            iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+            padding: const EdgeInsets.all(0),
+            iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
             color: FlutterFlowTheme.of(context).primary,
             textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                   fontFamily: 'Readex Pro',
@@ -77,7 +77,42 @@ class _TurnBarState extends State<TurnBar> {
                   letterSpacing: 0,
                 ),
             elevation: 3,
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
+              color: Colors.transparent,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        FFButtonWidget(
+          onPressed: () async {
+            final reslut = await _showCommonDialog(
+                context, 'ゲーム終了', 'このゲームを終了しますか？\n(最初の画面に戻ります)', 'OK', 'キャンセル');
+            if (reslut ?? false) {
+              for (int i = 0; i < 10; i++) {
+                if (context.mounted) Navigator.pop(context, false);
+                await Future.delayed(const Duration(milliseconds: 500));
+              }
+            }
+          },
+          text: '',
+          icon: const Icon(
+            Icons.exit_to_app,
+            size: 30,
+          ),
+          options: FFButtonOptions(
+            width: 50,
+            height: 40,
+            padding: const EdgeInsets.all(0),
+            iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+            color: FlutterFlowTheme.of(context).primary,
+            textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                  fontFamily: 'Readex Pro',
+                  color: Colors.white,
+                  letterSpacing: 0,
+                ),
+            elevation: 3,
+            borderSide: const BorderSide(
               color: Colors.transparent,
               width: 1,
             ),
@@ -88,6 +123,13 @@ class _TurnBarState extends State<TurnBar> {
       centerTitle: false,
       elevation: 2,
     );
+  }
+
+  bool? showCommonDialog(BuildContext context, String title, String message,
+      String yesText, String noText) {
+    Future<bool?> result =
+        _showCommonDialog(context, title, message, yesText, noText);
+    result.then((value) => value);
   }
 
   Future<bool?> _showCommonDialog(BuildContext context, String title,
