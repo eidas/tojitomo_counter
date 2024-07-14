@@ -1,14 +1,25 @@
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:tojitomo_counter/models/character.dart';
 
-class CharacterDataCSVReader {
+// Singleton
+class CharacterList {
+  List<Character> characterList = [];
+  static final CharacterList _instance = CharacterList._internal();
+
+  factory CharacterList() {
+    return _instance;
+  }
+  CharacterList._internal() {
+    characterList = _sampleList;
+  }
+
   // Future<List<Character>> read() async {
   //   const filePath = "character_data.csv";
   //   final result = await _getCsvData(filePath);
   //   rerturn characterList;
   // }
 
-  List<Character> sampleList = [
+  final List<Character> _sampleList = [
     Character(
         characterName: '安桜 美炎',
         characterNameRomeji: 'ASAKURA MIHONO',
@@ -394,9 +405,10 @@ class CharacterDataCSVReader {
         secretArtsDescription:
             '【コスト：なし】\nキャラクターを1体選び5ダメージを与える。さらに「安桜 美炎」がいる場合、ターン終了時まで自分または「安桜 美炎」の [攻勢] と [守勢] を＋4する。'),
   ];
-  List<Character> getSampleData() {
-    return sampleList;
-  }
+
+  // List<Character> getSampleData() {
+  //   return sampleList;
+  // }
 
   Future<List<Character>> _getCsvData() async {
     List<Character> characterList = [];

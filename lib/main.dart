@@ -2,12 +2,12 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:tojitomo_counter/models/character.dart';
-import 'package:tojitomo_counter/models/character_data_csv_reader.dart';
+import 'package:tojitomo_counter/models/character_list.dart';
 import 'package:tojitomo_counter/screens/character_sheet_screen.dart';
 import 'package:tojitomo_counter/screens/character_select_screen.dart';
 import 'package:tojitomo_counter/screens/test_screen.dart';
 
-void main() async {
+void main() {
   // final characterDataCSVReader = CharacterDataCSVReader();
   // final characterList = await characterDataCSVReader.getCsvData();
   runApp(
@@ -19,24 +19,16 @@ void main() async {
 }
 
 // ignore: must_be_immutable
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({
     super.key,
     // required this.characterList,
   });
-  // final List<Character> characterList;
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  List<Character> characterList = [];
 
   @override
   Widget build(BuildContext context) {
-    final characterReader = CharacterDataCSVReader();
-    characterList = characterReader.getSampleData();
+    // final characterReader = CharacterList();
+    // characterList = characterReader.getSampleData();
 
     // characterReader.getCsvData().then((list) => {
     //       setState(() {
@@ -52,70 +44,22 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
       ),
       home: //TestScreen(),
-          CharacterSelectScreen(
-        characterList: characterList,
-      ),
+          CharacterSelectScreen(),
+      // initialRoute: '/',
+      // routes: {
+      //   '/': (context) => CharacterSelectScreen(),
+      //   '/test': (context) => TestScreen(),
+      // },
+      // onGenerateRoute: (settings) {
+      //   if (settings.name == '/game') {
+      //     return MaterialPageRoute(
+      //         builder: (context) => CharacterSheetScreen(
+      //               character1: (settings.arguments as List<Character>)[0],
+      //               character2: (settings.arguments as List<Character>)[1],
+      //             ));
+      //   }
+      //   return null;
+      // },
     );
   }
 }
-
-// class MyHomePage extends StatefulWidget {
-//   const MyHomePage({super.key, required this.title});
-
-//   final String title;
-
-//   @override
-//   State<MyHomePage> createState() => _MyHomePageState();
-// }
-
-// class _MyHomePageState extends State<MyHomePage> {
-//   int _counter = 0;
-
-//   void _incrementCounter() {
-//     setState(() {
-//       _counter++;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-//         title: Text(widget.title),
-//       ),
-//       body: Transform.rotate(
-//         angle: 0,
-//         child: Center(
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: <Widget>[
-//               const Text(
-//                 'You have pushed the button this many times:',
-//               ),
-//               Text(
-//                 '$_counter',
-//                 style: Theme.of(context).textTheme.headlineMedium,
-//               ),
-//               ElevatedButton(
-//                 onPressed: () {
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(
-//                         builder: (context) => CharacterSheetScreen()),
-//                   );
-//                 },
-//                 child: Text("次の画面へ"),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: _incrementCounter,
-//         tooltip: 'Increment',
-//         child: const Icon(Icons.add),
-//       ),
-//     );
-//   }
-// }

@@ -5,9 +5,11 @@ import 'package:flutterflow_ui/flutterflow_ui.dart';
 class TurnBar extends AppBar {
   TurnBar({
     super.key,
-    required this.callback,
+    required this.newTurnCallback,
+    required this.gameEndCallback,
   });
-  final Function callback;
+  final Function newTurnCallback;
+  final Function gameEndCallback;
   int turn = 1;
 
   @override
@@ -57,7 +59,7 @@ class _TurnBarState extends State<TurnBar> {
               setState(() {
                 widget.turn++;
               });
-              widget.callback();
+              widget.newTurnCallback();
             }
           },
           text: '',
@@ -90,7 +92,9 @@ class _TurnBarState extends State<TurnBar> {
                 context, 'ゲーム終了', 'このゲームを終了しますか？\n(最初の画面に戻ります)', 'OK', 'キャンセル');
             if (reslut ?? false) {
               for (int i = 0; i < 10; i++) {
-                if (context.mounted) Navigator.pop(context, false);
+                if (context.mounted) {
+                  widget.gameEndCallback();
+                }
                 await Future.delayed(const Duration(milliseconds: 500));
               }
             }

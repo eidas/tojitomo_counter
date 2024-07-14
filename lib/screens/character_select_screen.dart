@@ -8,12 +8,12 @@ import 'package:tojitomo_counter/components/character_select_box.dart';
 // import 'package:tojitomo_counter/components/ability_score_row.dart';
 import 'package:tojitomo_counter/components/charater_info.dart';
 import 'package:tojitomo_counter/models/character.dart';
+import 'package:tojitomo_counter/models/character_list.dart';
 import 'package:tojitomo_counter/screens/character_sheet_screen.dart';
 
 class CharacterSelectScreen extends StatefulWidget {
   CharacterSelectScreen({
     super.key,
-    required this.characterList,
   });
 
   final Map<int, GlobalObjectKey<CharacterInfoState>> objectKeyMap = {
@@ -21,7 +21,7 @@ class CharacterSelectScreen extends StatefulWidget {
     2: const GlobalObjectKey('p2info')
   };
 
-  final List<Character> characterList;
+  final List<Character> characterList = CharacterList().characterList;
 
   @override
   State<CharacterSelectScreen> createState() => _CharacterSelectScreenState();
@@ -132,18 +132,15 @@ class _CharacterSelectScreenState extends State<CharacterSelectScreen> {
                   textStyle: Theme.of(context).textTheme.labelLarge,
                 ),
                 child: const Text('ゲーム開始'),
-                onPressed: () async {
-                  final result = await Navigator.push(
-                    context,
+                onPressed: () {
+                  // Navigator.of(context).pushNamed('/fourth', arguments:
+                  Navigator.of(context).push(
                     MaterialPageRoute(
                         builder: (context) => CharacterSheetScreen(
                               character1: character1,
                               character2: character2,
                             )),
                   );
-                  setState(() {
-                    rebuild = true;
-                  });
                 },
               ),
             ),

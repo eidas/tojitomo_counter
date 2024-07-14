@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:tojitomo_counter/components/charater_sheet.dart';
 import 'package:tojitomo_counter/components/turn_bar.dart';
 import 'package:tojitomo_counter/models/character.dart';
+import 'package:tojitomo_counter/screens/character_select_screen.dart';
 
 class CharacterSheetScreen extends StatelessWidget {
   CharacterSheetScreen({
@@ -110,7 +111,10 @@ class CharacterSheetScreen extends StatelessWidget {
             ),
           ),
           TurnBar(
-            callback: newTurn,
+            newTurnCallback: newTurn,
+            gameEndCallback: () {
+              Navigator.of(context).pop(false);
+            },
           ),
           Expanded(
             child: Padding(
