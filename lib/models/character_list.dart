@@ -406,10 +406,6 @@ class CharacterList {
             '【コスト：なし】\nキャラクターを1体選び5ダメージを与える。さらに「安桜 美炎」がいる場合、ターン終了時まで自分または「安桜 美炎」の [攻勢] と [守勢] を＋4する。'),
   ];
 
-  // List<Character> getSampleData() {
-  //   return sampleList;
-  // }
-
   Future<List<Character>> _getCsvData() async {
     List<Character> characterList = [];
     // String csv = await rootBundle.loadString(path);

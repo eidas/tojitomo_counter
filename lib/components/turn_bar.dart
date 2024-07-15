@@ -52,7 +52,6 @@ class _TurnBarState extends State<TurnBar> {
       actions: [
         FFButtonWidget(
           onPressed: () async {
-            // print('Button pressed ...');
             final reslut = await _showCommonDialog(
                 context, '次のターン', '次のターンに進みますか？', 'OK', 'キャンセル');
             if (reslut ?? false) {

@@ -1,11 +1,8 @@
 import 'dart:html';
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tojitomo_counter/components/character_select_box.dart';
-// import 'package:tojitomo_counter/components/ability_score_row.dart';
 import 'package:tojitomo_counter/components/charater_info.dart';
 import 'package:tojitomo_counter/models/character.dart';
 import 'package:tojitomo_counter/models/character_list.dart';
@@ -38,34 +35,6 @@ class _CharacterSelectScreenState extends State<CharacterSelectScreen> {
   Widget build(BuildContext context) {
     Character character1 = widget.characterList[0];
     Character character2 = widget.characterList[1];
-//     Character character1 = Character(
-//       characterName: '安桜 美炎',
-//       characterNameRomeji: 'ASAKURA MIHONO',
-//       shozoku: '美濃関',
-//       seiryoku: '刀使',
-//       offenseScore: 6,
-//       defenseScore: 4,
-//       agilityScore: 1,
-//       secretArtsName: '【奥義：神居弐式】',
-//       secretArtsDescription: """自分の帰還エリアにカードが4枚以上ある場合使用できる。
-// 【コスト：自分の写シを4枚隠世へ送る】
-// 相手キャラクターを1体選びサイコロを1回振る。出た目の数だけその相手キャラクターにこのキャラクターの [攻勢] と同じ数のダメージを与える。""",
-//     );
-//     Character character2 = Character(
-//       characterName: '衛藤 可奈美',
-//       characterNameRomeji: 'ETO KANAMI',
-//       shozoku: '美濃関',
-//       seiryoku: '刀使',
-//       offenseScore: 5,
-//       defenseScore: 5,
-//       agilityScore: 1,
-//       secretArtsName: '【奥義：無双神鳴斬】',
-//       secretArtsDescription: """自分の帰還エリアにカードが3枚以上ある場合使用でき、どちらか1つを選び適用する。
-// ・【コスト：自分の写シを4枚隠世へ送る】
-// 相手キャラクターを1体選びこのキャラクターの [攻勢] [守勢] を合計した数と同じ数のダメージを与える。
-// ・【コスト：自分の写シを3枚隠世へ送る】
-// 相手キャラクターを1体選び、そのキャラクターの奥義と同じ効果を得る（コストも含む）。""",
-//     );
 
     // レイアウト
     // CharacterInfo2 H=250
@@ -133,7 +102,6 @@ class _CharacterSelectScreenState extends State<CharacterSelectScreen> {
                 ),
                 child: const Text('ゲーム開始'),
                 onPressed: () {
-                  // Navigator.of(context).pushNamed('/fourth', arguments:
                   Navigator.of(context).push(
                     MaterialPageRoute(
                         builder: (context) => CharacterSheetScreen(
